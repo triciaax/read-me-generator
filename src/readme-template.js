@@ -9,6 +9,7 @@ const addStringIfExists = (item, string) => {
 const buildToc = (contributors, test, license) => {
     let tocString = `
     ## Table of Contents
+    [Description](#description)
     [Installation](#install)
     [Usage](#usage)
     ${addStringIfExists(contributors, "[Contribution Guidelines](#contrib)")}
@@ -22,7 +23,42 @@ const buildToc = (contributors, test, license) => {
 const buildHeader = (title, description) => {
     return `
     # ${title}
+    <a name="description"/>
+    ## Description
     ${description}
+    `
+}
+
+const buildBody = (installation, usage, contributors, test, license) => {
+    let contribString = `
+    <a name="contrib"/>
+    ## Contribution
+    ${contributors}
+    `
+    let testString = `
+    <a name="test"/>
+    ## Tests
+    ${test}
+    `
+    let licenseString = `
+    <a name="license"/>
+    ## Licenses
+    This project is licensed under the following license(s):
+    ${license.map((string) => {
+        return `- ${string}`
+    })}
+    `
+    
+    return `
+    <a name="install"/>
+    ## Installation
+    ${installation}
+    <a name="usage"/>
+    ## Usage
+    ${usage}
+    ${addStringIfExists(contributors, contribString)}
+    ${addStringIfExists(test, testString)}
+    ${addStringIfExists(license, licenseString)}
     `
 }
 
