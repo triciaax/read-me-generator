@@ -1,0 +1,22 @@
+{
+  "name": "read-me-generator",
+  "version": "1.0.0",
+  "description": "readme generator",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/triciaax/read-me-generator.git"
+  },
+  "author": "tricia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/triciaax/read-me-generator/issues"
+  },
+  "homepage": "https://github.com/triciaax/read-me-generator#readme",
+  "dependencies": {
+    "inquirer": "^7.0.4"
+  }
+}
