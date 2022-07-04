@@ -1,6 +1,6 @@
 var inquirer = require("inquirer");
 const fs = require("fs");
-//const generatePage = require("./src/page-template");
+const generateReadme = require("./src/readme-template");
 
 const promptUser = () => {
   return inquirer.prompt([
@@ -20,7 +20,7 @@ const promptUser = () => {
     {
       type: "input",
       name: "description",
-      message: " (Required) Please enter a description for your README:",
+      message: "(Required) Please enter a description for your README:",
       validate: (descriptionInput) => {
         if (descriptionInput) {
           return true;
@@ -33,7 +33,7 @@ const promptUser = () => {
  {
       type: "input",
       name: "installation",
-      message: " (Required) Please enter installation instructions for your README:",
+      message: "(Required) Please enter installation instructions for your README:",
       validate: (installationInput) => {
         if (installationInput) {
           return true;
@@ -46,7 +46,7 @@ const promptUser = () => {
     {
         type: "input",
         name: "usage",
-        message: " (Required) Please enter how to use your application:",
+        message: "(Required) Please enter how to use your application:",
         validate: (usageInput) => {
           if (usageInput) {
             return true;
@@ -60,21 +60,11 @@ const promptUser = () => {
         type: "input",
         name: "contributors",
         message: "Please enter any contribution guidelines:",
-        validate: (contributorsInput) => {
-          if (contributorsInput) {
-            return true;
-          } 
-        },
       },
       {
         type: "input",
         name: "test",
         message: "Please enter any testing instructions:",
-        validate: (testInput) => {
-          if (testInput) {
-            return true;
-          } 
-        },
       },
       {
         type: "checkbox",
@@ -88,11 +78,6 @@ const promptUser = () => {
             "Public Domain",
             "Proprietary",
         ],
-        validate: (licenseInput) => {
-          if (licenseInput) {
-            return true;
-          } 
-        },
       },
       {
         type: "input",
@@ -122,5 +107,21 @@ const promptUser = () => {
       },
     ])}
 
+const writeFile = (data) => {
+    fs.writeFile("dist/README.md", data, (err) => {
+        if (err) throw new Error(err);
+    })
+}
+
+
 promptUser()
-  .then(projectData => console.log(projectData))
+  .then(projectData => {
+    console.log(projectData)
+    return generateReadme(projectData);
+  })
+  .then(readmeMarkdown => {
+    return writeFile(readmeMarkdown);
+  })
+  .catch((err) => {
+    console.log(err)
+  })
